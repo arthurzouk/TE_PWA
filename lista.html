@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head lang="pt-BR">
+ <meta charset="UTF-8">
+ <title>PWA-Lista</title>
+ 	<meta name="viewport" content="width=device-width, initial-scale=1" />  
+
+ 	<link rel="manifest" href="/manifest.webmanifest" />
+  <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">-->
+  <!--<script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>-->
+  <script>
+    /*fetch()
+        .then(function(res){
+        return res.text();
+        })
+        .then( function(conteudo) {
+        document.getElementById('conteudo').innerHTML = conteudo;
+        });
+    */
+    let objeto = JSON.parse(localStorage.getItem('objeto'));
+    console.log(objeto);
+  </script>
+    
+</head>
+
+<body>
+    <table id="conteudo" border="1">
+        <tr>
+        <td>Login</td>
+        <td>senha</td>
+        </tr>
+        <tr>
+        <td>teste</td>
+        <td>teste</td>
+        </tr>
+    </table>
+    <a href="/index.html"><span>Voltar</span></a>
+</body>
+</html>

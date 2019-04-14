@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head lang="pt-BR">
+ <meta charset="UTF-8">
+ <title>PWA</title>
+ 	<meta name="viewport" content="width=device-width, initial-scale=1" />  
+
+ 	<link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" type="image/png" href="img/imagens/icones/favicon.ico" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="PWA">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/imagens/icones/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/imagens/icones/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/imagens/icones/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/imagens/icones/apple-icon-180x180.png">
+  <link rel="stylesheet" href="css/estilos.css" >
+  <script>
+
+    navigator.serviceWorker.register('/sw.js');
+
+    let objeto = {
+      'login': 'teste',
+      'senha': '123'
+    }
+    localStorage.setItem('objeto', JSON.stringify(objeto));
+  </script>
+    
+</head>
+
+<body>
+  
+  <p><img src="img/imagens/icones/android-icon-192x192.png"/></p>
+  <h1>Minha primeira PWA</h1>
+  <label>Login:</label><input type="text" name="login" id="login"><br>
+  <label>Senha:</label><input type="password" name="senha" id="senha"><br>
+  <input type="submit" value="Cadastrar" id="cadastrar" name="cadastrar">
+  <a href="/lista.html"><span>Listar</span></a>
+
+</body>
+</html>
