@@ -15,27 +15,119 @@
   <link rel="apple-touch-icon" sizes="152x152" href="img/imagens/icones/apple-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="180x180" href="img/imagens/icones/apple-icon-180x180.png">
   <link rel="stylesheet" href="css/estilos.css" >
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
   <script>
 
     navigator.serviceWorker.register('/sw.js');
 
-    let objeto = {
-      'login': 'teste',
-      'senha': '123'
-    }
-    localStorage.setItem('objeto', JSON.stringify(objeto));
   </script>
     
 </head>
 
 <body>
-  
-  <p><img src="img/imagens/icones/android-icon-192x192.png"/></p>
-  <h1>Minha primeira PWA</h1>
-  <label>Login:</label><input type="text" name="login" id="login"><br>
-  <label>Senha:</label><input type="password" name="senha" id="senha"><br>
-  <input type="submit" value="Cadastrar" id="cadastrar" name="cadastrar">
-  <a href="/lista.html"><span>Listar</span></a>
+  <div class="toolbar">
+    <div class="toolbar__center">Navigation Bar</div>
+  </div>
 
+  <ons-page id="inicial" class="mostrar">
+      <p style="text-align: center;"><img src="img/imagens/icones/android-icon-192x192.png"/></p>
+      <h1 style="text-align: center;">Minha primeira PWA</h1>
+      <div style="text-align: center;">
+        <input class="text-input" type="text" name="login" id="login" placeholder="Login"><br>
+        <input class="text-input" type="password" name="senha" id="senha" placeholder="Senha"><br>
+        <ons-button onclick="Cadastrar()" id="cadastrar" name="cadastrar">Cadastrar</ons-button>
+        <button onclick="Listar()" Class="button" id="listar" name="listar">Listar</button>
+      </div>
+  </ons-page>
+
+  <ons-page id="lista" class="esconder">
+    <div style="text-align: center;">
+      <table style="text-align: center;" id="conteudo" border="1">
+          
+      </table>
+      <ons-button onclick="Voltar()" id="voltar" name="voltar">Voltar</ons-button>
+      <ons-button onclick="Limpar()" class="button button--outline" id="limpar" name="limpar">Limpar lista</ons-button>
+    </div>
+  </ons-page>
+
+  <div class="bottom-bar">
+    <div class="bottom-bar__line-height" style="text-align:center">Bottom Toolbar</div>
+  </div>
+
+  <script>
+
+    function Cadastrar(){ 
+
+      var oldItems = JSON.parse(localStorage.getItem('objeto')) || [];
+
+      var newItem = 
+      {
+      'login': document.getElementById("login").value,
+      'senha': document.getElementById("senha").value
+      };
+
+      oldItems.push(newItem);
+
+      localStorage.setItem('objeto', JSON.stringify(oldItems));
+    }
+
+    function Listar(){      
+
+      if ("objeto" in localStorage) {
+        var inicial = document.getElementById("inicial");
+        inicial.classList.remove("mostrar");
+        inicial.classList.add("esconder");
+
+        var lista = document.getElementById("lista");
+        lista.classList.remove("esconder");
+        lista.classList.add("mostrar");
+
+        var hst = document.getElementById("conteudo");
+        
+        let objeto = JSON.parse(localStorage.getItem("objeto"));
+
+        if(objeto.login != undefined)        
+          hst.innerHTML = "<tr><td>Login</td><td>Senha</td></tr><tr><td>" + objeto.login + "</td><td>" + objeto.senha + "</td></tr>";
+        else{
+          var tabela = "<tr><td>Login</td><td>Senha</td></tr>";
+          for (var i = 0; i < objeto.length; i++) {
+            tabela += "<tr><td>" + objeto[i].login + "</td><td>" + objeto[i].senha + "</td></tr>";
+          }
+
+          hst.innerHTML = tabela;
+        }    
+      }
+      else{
+        alert("A lista está vazia!");
+      }
+      
+    }
+
+    function Voltar(){
+      var lista = document.getElementById("lista");
+      lista.classList.remove("mostrar");
+      lista.classList.add("esconder");
+
+      var inicial = document.getElementById("inicial");
+      inicial.classList.remove("esconder");
+      inicial.classList.add("mostrar");
+    }
+
+    function Limpar(){
+      localStorage.removeItem('objeto');
+    }    
+
+    if ("objeto" in localStorage) {
+        var listar = document.getElementById("listar");
+        listar.classList.add("button");
+    }
+    else{
+      var listar = document.getElementById("listar");
+      listar.classList.add("button button--light");
+    }
+      
+  </script>
 </body>
 </html>
